@@ -1,34 +1,33 @@
-// src/ModelViewerAR.jsx
-import React from 'react';
-import '@google/model-viewer';
+import React, { useState } from 'react';
+import ModelViewerAR from './ModelViewerAR';
 
-export default function ModelViewerAR({ src, alt = "3D model" }) {
+function App() {
+  const [modelSrc, setModelSrc] = useState(process.env.PUBLIC_URL + "/chair.glb");
+
+
   return (
-    <model-viewer
-      src={src}
-      ar
-      ar-modes="scene-viewer webxr quick-look"
-      camera-controls
-      auto-rotate
-      shadow-intensity="1"
-      exposure="1"
-      style={{ width: '100%', height: '100vh' }}
-    >
-      <button slot="ar-button" style={{
+    <div>
+      <ModelViewerAR src={modelSrc} alt="Chair in AR" />
+
+
+      {/* Model Switcher */}
+      <div style={{
         position: 'absolute',
-        bottom: '16px',
+        bottom: '100px',
         left: '50%',
         transform: 'translateX(-50%)',
-        padding: '12px 24px',
-        background: '#000',
-        color: '#fff',
-        border: 'none',
+        background: '#fff',
         borderRadius: '8px',
-        fontSize: '16px',
-        cursor: 'pointer'
+        padding: '10px',
+        display: 'flex',
+        gap: '10px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+        zIndex: 100
       }}>
-        View in your space
-      </button>
-    </model-viewer>
+        <button onClick={() => setModelSrc("/chair.glb")}>Chair</button>
+      </div>
+    </div>
   );
 }
+
+export default App;
